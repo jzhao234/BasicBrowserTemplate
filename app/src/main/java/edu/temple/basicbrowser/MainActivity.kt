@@ -29,9 +29,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         goButton.setOnClickListener {
-            val url = urlEditText.text.toString()
+            val url = parseUrl(urlEditText.text.toString())
+            urlEditText.setText(url)
             webView.loadUrl(url)
         }
-
+    }
+    private fun parseUrl(url: String): String {
+        return if (url.startsWith("http://") || url.startsWith("https://")) {
+            url
+        } else {
+            "https://$url"
+        }
     }
 }
